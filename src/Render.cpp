@@ -61,8 +61,8 @@ bool Render::Awake()
 			}
 		}
 
-		camera.w = Engine::GetInstance().window->width * scale;
-		camera.h = Engine::GetInstance().window->height * scale;
+		camera.w = Engine::GetInstance().window->width / scale;
+		camera.h = Engine::GetInstance().window->height / scale;
 		camera.x = 0;
 		camera.y = 0;
 	}
