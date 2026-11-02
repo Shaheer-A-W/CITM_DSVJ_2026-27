@@ -62,19 +62,19 @@ bool Player::Update(float dt)
 	velocity = Engine::GetInstance().physics->GetLinearVelocity(pbody);
 	velocity = { 0, velocity.y }; // Reset horizontal velocity by default, this way the player stops when no key is pressed
 
-	// L10: TODO 7: Default to the "idle" animation; a key below overrides it
-	anims.SetCurrent("idle");
-
 	// Move left/right
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		velocity.x = -speed;
 		// L10: TODO 7: Switch to the "move" animation
 		anims.SetCurrent("move");
-	}
-	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	}else if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		velocity.x = speed;
 		// L10: TODO 7: Switch to the "move" animation
 		anims.SetCurrent("move");
+	}
+	else {
+		// L10: TODO 7: Default to the "idle" animation; a key below overrides it
+		anims.SetCurrent("idle");
 	}
 
 	// Apply velocity via helper
@@ -94,6 +94,7 @@ bool Player::Update(float dt)
 	if (position.getX() > limitLeft && position.getX() < limitRight) {
 		Engine::GetInstance().render->camera.x = camW / 4.0f - position.getX();
 	}
+	Engine::GetInstance().render->camera.y = - position.getY()-32; // No vertical camera movement
 
 	// L10: TODO 6: Advance the animation clock -- logic, so it belongs in Update(), not Draw()
 	anims.Update(dt);
