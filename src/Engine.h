@@ -99,7 +99,9 @@ private:
 	PerfTimer frameTime;
 	PerfTimer lastSecFrameTime;
 	PerfTimer titleUpdateTime;
-
+	// Written by TODOer
+	PerfTimer dtTimer;
+	// Not written by TODOer anymore
 	int framesPerSecond = 0;
 	int lastSecFrameCount = 0;
 

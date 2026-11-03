@@ -12,19 +12,21 @@ Uint64 PerfTimer::frequency = SDL_GetPerformanceFrequency();
 PerfTimer::PerfTimer()
 {
 	//...
+	Start();
 }
 
 void PerfTimer::Start()
 {
 	//...
+	startTime = SDL_GetPerformanceCounter();
 }
 
 double PerfTimer::ReadMs() const
 {
-	return 0.0f;
+	return (static_cast<double>(ReadTicks())/frequency)*1000.0;
 }
 
 Uint64 PerfTimer::ReadTicks() const
 {
-	return 0;
+	return SDL_GetPerformanceCounter() - startTime;
 }
