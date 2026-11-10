@@ -49,17 +49,18 @@ bool Scene::Update(float dt)
 	//   - Declare a camSpeed of 200.0f (pixels per second).
 	//   - Multiply camSpeed by dt before adding/subtracting it below.
 	//   - camera.x / camera.y are float (SDL_FRect), so just assign the result.
+	float camSpeed = 200.0f;
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		Engine::GetInstance().render->camera.y -= 1;
+		Engine::GetInstance().render->camera.y -= camSpeed * dt;
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		Engine::GetInstance().render->camera.y += 1;
+		Engine::GetInstance().render->camera.y += camSpeed * dt;
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		Engine::GetInstance().render->camera.x -= 1;
+		Engine::GetInstance().render->camera.x -= camSpeed * dt;
 
 	if (Engine::GetInstance().input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		Engine::GetInstance().render->camera.x += 1;
+		Engine::GetInstance().render->camera.x += camSpeed * dt;
 
 	//Get the size of the window
 	int windowW, windowH;

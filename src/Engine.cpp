@@ -160,7 +160,17 @@ void Engine::FinishUpdate()
     // L03: TODO 1: Cap the framerate of the gameloop using maxFrameDuration.
     // Compute how long this frame's work took (frameTime, in ms) and, if it
     // finished early, SDL_Delay() the difference. 
-
+    float expectedFrameDuration = 1000.0f / targetFrameRate;
+    if (frameTime.ReadMs() != 0 && frameTime.ReadMs() < expectedFrameDuration)
+    {
+        PerfTimer waitDifference;
+        float frameTimeAtDelay = 0;
+        waitDifference.Start();
+        frameTimeAtDelay = frameTime.ReadMs();
+        SDL_DelayPrecise((expectedFrameDuration - frameTimeAtDelay)*1000000);
+        float actualWaitDifference = waitDifference.ReadMs() - (expectedFrameDuration - frameTimeAtDelay);
+        LOG("Wait difference was: %f", actualWaitDifference);
+    }
     // L03: TODO 2: Measure accurately the amount of time SDL_Delay()
     // actually waits compared to what was expected
     // ...
